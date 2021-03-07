@@ -1,0 +1,23 @@
+{% extends "recipe/base.html" %}
+
+{% block content %}
+    <h3>Step 1 - Add ingredients for your recipe:</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ ingredient_form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+    <p>Return to <a href="{% url 'home' %}">HOMEPAGE</a> for step 2</p>
+    <hr>
+    <div>
+        <h3>This is the list of added ingredients:</h3>
+        {% for ingredient in ingredient_list %}
+            <li>
+                {{ ingredient }}
+            </li>
+            <br>
+        {% endfor %}
+    </div>
+
+
+{% endblock content %}

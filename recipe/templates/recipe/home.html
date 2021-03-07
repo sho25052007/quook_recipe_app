@@ -1,0 +1,15 @@
+{% extends "recipe/base.html" %}
+
+{% block content %}
+    <h3>Follow these steps to build a recipe:</h3>
+    <p>1. Start by adding ingredients <a href="{% url 'add_ingredient' %}">HERE!</a></p>
+    <p>2. Then create a recipe description <a href="{% url 'add_recipe' %}">HERE!</a></p>
+    <p>3. Finally connect with ingredient amounts:<br>
+        Choose recipe to connect to ingredients and it's amount:</p>
+        {% for recipe in recipe_list %}
+            <li>
+                <a href="{% url 'add_ingredient_amount' recipe.id %}">{{ recipe.title }}</a>
+            </li>
+            <br>
+        {% endfor %}
+{% endblock content %}

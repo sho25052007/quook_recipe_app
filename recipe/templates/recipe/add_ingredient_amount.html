@@ -1,0 +1,15 @@
+{% extends 'recipe/base.html' %}
+
+{% block content %}
+<h3>Step 3 - Add ingredient amount for each ingredient for "{{ recipe.title }}":</h3>
+<hr>
+<p>Return to <a href="{% url 'home' %}">HOMEPAGE</a></p>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ formset.as_p }}
+    <p>Hit "Save" to store ingredients - you can add more once you've saved.</p>
+    <button type="submit">Save</button>
+</form>
+
+
+{% endblock %}
