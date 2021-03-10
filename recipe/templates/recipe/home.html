@@ -1,15 +1,12 @@
 {% extends "recipe/base.html" %}
 
 {% block content %}
-    <h3>Follow these steps to build a recipe:</h3>
-    <p>1. Start by adding ingredients <a href="{% url 'add_ingredient' %}">HERE!</a></p>
-    <p>2. Then create a recipe description <a href="{% url 'add_recipe' %}">HERE!</a></p>
-    <p>3. Finally connect with ingredient amounts:<br>
-        Choose recipe to connect to ingredients and it's amount:</p>
-        {% for recipe in recipe_list %}
-            <li>
-                <a href="{% url 'add_ingredient_amount' recipe.id %}">{{ recipe.title }}</a>
-            </li>
-            <br>
-        {% endfor %}
+    <h1>Welcome to the QUOOK APP!</h1>
+    <hr>
+    <h3>About:</h3>
+    <p>This is a recipe blog app where you can build and share your recipe!
+        <br>The recipe is orientated around it's ingredients.
+        <br>This makes categorising and searching for recipes, intuitive and quick!</p>
+    <hr>
+    <h3>Enter <a href="{% url 'recipe:recipe_builder' %}">Recipe Builder! &raquo;</a></h3>
 {% endblock content %}

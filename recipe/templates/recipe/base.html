@@ -6,8 +6,23 @@
     </head>
 
     <body>
-        {% block content %}
-
-        {% endblock %}
+        <nav>
+            <a href="{% url 'recipe:home' %}">QUOOK</a>
+            <div>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><span>Hello, {{user.username}}.</span></li>
+                        <li><a href="{% url 'users:logout' %}">Log Out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:register' %}">Register Here</a></li>
+                        <li><a href="{% url 'users:login' %}">Log In</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     </body>
 </html>
