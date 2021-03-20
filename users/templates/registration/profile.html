@@ -1,0 +1,18 @@
+{% extends "recipe/base.html" %}
+
+{% block content %}
+
+    <h1>{{ user.username }}</h1>
+    <img src="{{ user.profile.image.url }}">
+
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+            <h4>User Update</h4>
+            {{ u_form.as_p }}
+            <br>
+            <h4>Profile Update</h4>
+            {{ p_form.as_p }}
+            <button type="submit">Update</button>
+    </form>
+
+{% endblock content %}
