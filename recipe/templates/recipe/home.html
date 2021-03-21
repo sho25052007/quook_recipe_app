@@ -8,5 +8,18 @@
         <br>The recipe is orientated around it's ingredients.
         <br>This makes categorising and searching for recipes, intuitive and quick!</p>
     <hr>
-    <h3>Enter <a href="{% url 'recipe:recipe_builder' %}">Recipe Builder! &raquo;</a></h3>
+    {% for recipe in recipe_list %}
+    <article class="media content-section">
+        <!-- <img class="rounded-circle recipe-img" src="{{ recipe.image.url }}"> ### this doesnt work yet, need to make recipe model include images ###-->
+        <div class="media-body">
+            <!-- <div class="article-metadata">
+                <a class="mr-2" href="{% url 'users:user_recipes' recipe.author.username %}">{{ recipe.author }}</a> ### this also doesnt work yet, need author field in recipe model and then needs users:user_recipe template for list of recipes made by that specific user. ###
+                <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small> ### recipe model needs date_posted field using datetime module ###
+            </div> -->
+            <h5><a class="article-title" href="#">{{ recipe.title }}</a></h5>
+            <!-- the <h5> tag needs <a href="{% url 'recipe-detail' recipe.id %}"></a> ### need to make template displaying recipe details ### -->
+            <!-- ALSO SOME KIND OF INGREDIENT TAG LIST (main three) -->
+        </div>
+    </article>
+    {% endfor %}
 {% endblock content %}

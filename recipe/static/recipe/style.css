@@ -1,0 +1,34 @@
+/* CSS STYLE */
+
+/* BODY */
+body {
+    background: #FAD2DB;
+    margin-top: 5rem;
+}
+
+/* TEXT */
+h1, h2, h3, h4, h5, h6, a {
+    color: #272E4A;
+    text-decoration: none;
+}
+
+/* NAVBAR */
+ul {
+    margin: 0;
+}
+
+.nav-bg {
+    background-color: #B5DFE9;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+i.fas {
+    color: #272E4A;
+}
+

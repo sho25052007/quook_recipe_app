@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'recipe/home.html', {'title': 'home'})
+    recipe_list = Recipe.objects.all()
+
+    return render(request, 'recipe/home.html', {'title': 'home', 'recipe_list': recipe_list})
 
 
 @login_required
