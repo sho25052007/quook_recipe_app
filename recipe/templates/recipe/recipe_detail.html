@@ -1,0 +1,44 @@
+{% extends "recipe/base.html" %}
+
+
+{% block content %}
+    <h1>{{ recipe.title|title }}</h1>
+    <hr>
+
+    <!-- <div class ="row fill-viewport align-items-center">
+        {% for recipe in recipes %}
+            <div class="col-6 col-md-3 text-center">
+                <a href="#">
+                    <img class="rounded border border-5 border-light img-fluid recipe-img my-2" src="{{ recipe.image.url }}">
+                    <a class="link-unstyled article-title" href="#"><h6>{{ recipe.title }}</h6></a>
+                    <a class="link-unstyled article-title" href="#"></a><small class="font-italic">by - {{ recipe.author }}</small></a>
+                    <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
+                </a>
+            </div>
+        {% endfor %}
+    </div> -->
+
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ recipe.image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'recipe:user_recipes' recipe.author.username %}">{{ recipe.author }}</a>
+                <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
+                <!-- {% if object.author == user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+                    </div>
+                {% endif %} -->
+            </div>
+            <!-- <p class="article-content">{{ recipe.description }}</p>
+            {% for ingredient_detail in recipe_ingredients %}
+            <p class="article-content">{{ ingredient_detail.name }}</p>
+            {% endfor %}
+            {% for ingredient_amount_detail in recipe_ingredient_amount %}
+            <p class="article-content">{{ ingredient_amount_detail.amount }}</p>
+            {% endfor %} -->
+        </div>
+    </article>
+
+{% endblock content %}

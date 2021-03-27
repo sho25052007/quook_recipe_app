@@ -1,15 +1,38 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ingredient, Recipe, IngredientAmount
 from django.forms import inlineformset_factory
 from .forms import IngredientForm, RecipeForm
 
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 
-def home(request):
-    recipe_list = Recipe.objects.all()
+class RecipeListView(ListView):
+    model = Recipe
+    template_name = 'recipe/home.html'
+    context_object_name = 'recipes'
+    ordering = ['-date_posted']
 
-    return render(request, 'recipe/home.html', {'title': 'home', 'recipe_list': recipe_list})
+
+class UserRecipeListView(ListView):
+    model = Recipe
+    template_name = 'recipe/user_recipes.html'
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Recipe.objects.filter(author=user).order_by('-date_posted')
+
+
+@login_required
+def recipeDetail(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    # recipe = Recipe.objects.get(pk=recipe_id)
+    # recipe_ingredients = Ingredient.objects.filter(title=recipe.title)
+    # recipe_ingredient_amount = IngredientAmount.objects.filter(
+    #     title=recipe.title)
+    return render(request, 'recipe/recipe_detail.html', {'recipe': recipe})
 
 
 @login_required

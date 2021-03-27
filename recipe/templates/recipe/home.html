@@ -8,18 +8,17 @@
         <br>The recipe is orientated around it's ingredients.
         <br>This makes categorising and searching for recipes, intuitive and quick!</p>
     <hr>
-    {% for recipe in recipe_list %}
-    <article class="media content-section">
-        <!-- <img class="rounded-circle recipe-img" src="{{ recipe.image.url }}"> ### this doesnt work yet, need to make recipe model include images ###-->
-        <div class="media-body">
-            <!-- <div class="article-metadata">
-                <a class="mr-2" href="{% url 'users:user_recipes' recipe.author.username %}">{{ recipe.author }}</a> ### this also doesnt work yet, need author field in recipe model and then needs users:user_recipe template for list of recipes made by that specific user. ###
-                <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small> ### recipe model needs date_posted field using datetime module ###
-            </div> -->
-            <h5><a class="article-title" href="#">{{ recipe.title }}</a></h5>
-            <!-- the <h5> tag needs <a href="{% url 'recipe-detail' recipe.id %}"></a> ### need to make template displaying recipe details ### -->
-            <!-- ALSO SOME KIND OF INGREDIENT TAG LIST (main three) -->
-        </div>
-    </article>
-    {% endfor %}
+    <div class ="row fill-viewport align-items-center">
+        {% for recipe in recipes %}
+            <div class="col-6 col-md-3 text-center">
+                <div class="media-content">
+                    <img class="rounded border border-5 border-light img-fluid recipe-img my-2" src="{{ recipe.image.url }}">
+                    <a class="link-unstyled article-title" href="{{ recipe.get_absolute_url }}"><h6>{{ recipe.title }}</h6></a>
+                    <!-- how to slugify recipe.title to get into url?? -->
+                    <a class="link-unstyled article-title" href="{% url 'recipe:user_recipes' recipe.author %}"><small class="font-italic">by - {{ recipe.author }}</small></a>
+                    <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}

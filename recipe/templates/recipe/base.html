@@ -50,7 +50,7 @@
       </nav>
     </header>
 
-    <main role="main" class="container">
+    <main class="container">
       <div class="row">
         <div class="col-md-8">
           {% if messages %}
@@ -60,9 +60,9 @@
               </div>
             {% endfor %}
           {% endif %}
-          {% block content %}{% endblock %}
         </div>
       </div>
+      {% block content %}{% endblock %}
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
