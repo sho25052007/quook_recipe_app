@@ -2,42 +2,37 @@
 
 
 {% block content %}
+
     <h1>{{ recipe.title|title }}</h1>
     <hr>
-
-    <!-- <div class ="row fill-viewport align-items-center">
-        {% for recipe in recipes %}
-            <div class="col-6 col-md-3 text-center">
-                <a href="#">
-                    <img class="rounded border border-5 border-light img-fluid recipe-img my-2" src="{{ recipe.image.url }}">
-                    <a class="link-unstyled article-title" href="#"><h6>{{ recipe.title }}</h6></a>
-                    <a class="link-unstyled article-title" href="#"></a><small class="font-italic">by - {{ recipe.author }}</small></a>
-                    <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
-                </a>
-            </div>
-        {% endfor %}
-    </div> -->
-
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ recipe.image.url }}">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'recipe:user_recipes' recipe.author.username %}">{{ recipe.author }}</a>
-                <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
-                <!-- {% if object.author == user %}
-                    <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
-                    </div>
-                {% endif %} -->
+        <div class="col-3">
+            <div class="media-content">
+                <img class="rounded-circle border border-5 border-light img-fluid recipe-img my-2" src="{{ recipe.image.url }}">
+                <div class="text-center">
+                    <a class="link-unstyled font-italic" href="{% url 'recipe:user_recipes' recipe.author.username %}">by - {{ recipe.author }}</a>
+                    <br>
+                    <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
+                </div>
             </div>
-            <!-- <p class="article-content">{{ recipe.description }}</p>
-            {% for ingredient_detail in recipe_ingredients %}
-            <p class="article-content">{{ ingredient_detail.name }}</p>
+            <div class="media-content">
+                {% if recipe.author == user %}
+                    <div class="text-center mt-5">
+                        <a class="btn btn-info btn-sm my-1 mx-1" href="{% url 'recipe:recipe_edit' slug=recipe.slug %}">Edit</a>
+                        <a class="btn btn-danger btn-sm my-1 mx-1" href="{% url 'recipe:recipe_delete' slug=recipe.slug %}">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="media-body mx-5 col-9">
+            <div class="article-metadata">
+                <h5>Description:</h5>
+                <pre class="article-content p-3">{{ recipe.description }}</pre>
+            </div>
+            <h5> Ingredients:</h5>
+            {% for ingredient_detail in related_ingredients %}
+            <p class="article-content">{{ ingredient_detail.ingredient }} | <small>{{ ingredient_detail.amount }}</small></p>
             {% endfor %}
-            {% for ingredient_amount_detail in recipe_ingredient_amount %}
-            <p class="article-content">{{ ingredient_amount_detail.amount }}</p>
-            {% endfor %} -->
         </div>
     </article>
 

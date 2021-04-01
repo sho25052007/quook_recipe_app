@@ -61,3 +61,6 @@ class IngredientAmount(models.Model):
     ingredient = models.ForeignKey(
         'Ingredient', related_name='ingredient_amounts', on_delete=models.SET_NULL, null=True, blank=True)
     amount = models.IntegerField(choices=AMOUNT_CHOICES, default=SINGLE)
+
+    def __str__(self):
+        return f'Recipe = {self.recipe}, Ingredient = {self.ingredient}, Amount = {self.amount}'

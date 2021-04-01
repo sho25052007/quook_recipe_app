@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from .models import Ingredient, Recipe, IngredientAmount
 from django.forms import inlineformset_factory
 from .forms import IngredientForm, RecipeForm
@@ -28,11 +29,37 @@ class UserRecipeListView(ListView):
 @login_required
 def recipeDetail(request, slug):
     recipe = get_object_or_404(Recipe, slug=slug)
-    # recipe = Recipe.objects.get(pk=recipe_id)
-    # recipe_ingredients = Ingredient.objects.filter(title=recipe.title)
-    # recipe_ingredient_amount = IngredientAmount.objects.filter(
-    #     title=recipe.title)
-    return render(request, 'recipe/recipe_detail.html', {'recipe': recipe})
+    related_ingredients = IngredientAmount.objects.filter(
+        recipe__slug=slug)
+
+    return render(request, 'recipe/recipe_detail.html', {'recipe': recipe, 'related_ingredients': related_ingredients})
+
+
+@login_required
+def recipeEdit(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    recipe_edit_form = RecipeForm(request.POST or None, instance=recipe)
+    if recipe_edit_form.is_valid():
+        recipe_edit_form.save()
+        return redirect(reverse("recipe:recipe_detail", kwargs={'slug': str(slug)}))
+    return render(request, 'recipe/recipe_edit.html', {'recipe_edit_form': recipe_edit_form})
+
+
+# @login_required
+# def ingredientEdit(request, slug):
+
+
+# @login_required
+# def IngredientAmountEdit(request, slug):
+
+
+@login_required
+def recipeDelete(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    if request.method == 'POST':
+        recipe.delete()
+        return redirect('/')
+    return render(request, 'recipe/recipe_delete.html', {'recipe': recipe})
 
 
 @login_required
@@ -73,8 +100,6 @@ def addRecipe(request):
 @login_required
 def addIngredientAmount(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
-    # recipes = recipe.ingredient_amounts.all()
-    # recipe_selected = Recipe.objects.filter(id=recipe_id)
     IngredientAmountFormset = inlineformset_factory(
         Recipe, IngredientAmount, fields=('__all__'))
 

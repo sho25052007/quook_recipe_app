@@ -14,7 +14,6 @@
                 <div class="media-content">
                     <img class="rounded border border-5 border-light img-fluid recipe-img my-2" src="{{ recipe.image.url }}">
                     <a class="link-unstyled article-title" href="{{ recipe.get_absolute_url }}"><h6>{{ recipe.title }}</h6></a>
-                    <!-- how to slugify recipe.title to get into url?? -->
                     <a class="link-unstyled article-title" href="{% url 'recipe:user_recipes' recipe.author %}"><small class="font-italic">by - {{ recipe.author }}</small></a>
                     <small class="text-muted">{{ recipe.date_posted|date:"d F, Y" }}</small>
                 </div>
