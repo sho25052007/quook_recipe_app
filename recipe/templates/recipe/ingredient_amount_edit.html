@@ -1,0 +1,42 @@
+{% extends "recipe/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container my-5">
+    <h3>Choose Ingredient Amount - set amount for ingredients of {{ recipe.title|title }}:</h3>
+    <hr/>
+    <div class="row fill-50-viewport">
+        <div class="col-3 border border-info rounded my-2">
+            <p class="lead py-2 text-center"><strong>Ingredient amount for<br>{{ recipe.title|title }}:</strong></p>
+            <ul class="list-group  list-group-flush d-flex flex-column align-item-start">
+                {% for ingredient_amount in ingredient_amount_list %}
+                    <li class="list-group-item list-group-item-dark li-bg-colour">
+                        {{ ingredient_amount.ingredient|title }} | <small>{{ ingredient_amount.amount }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-9 d-flex flex-column">
+            <div class="d-flex flex-column">
+                <form class="form-group mt-5" method="POST">
+                    {% csrf_token %}
+                    {{ ingredient_amount_edit_formset.management_form }}
+                    {% for formset in ingredient_amount_edit_formset %}
+                    <div class="d-flex justify-content-center my-2">
+                        {{ formset|crispy }}
+                    </div>
+                    {% endfor %}
+                    <div class="col-12">
+                        <button class="btn btn-info btn-block my-1 mx-2" type="submit">Set</button>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-primary btn-m mt-3 mb-1 mx-2" href="{% url 'recipe:ingredient_edit' slug=recipe.slug %}">Go back Add Ingredient</a>
+                            <a class="btn btn-primary btn-m mt-3 mb-1" href="{% url 'recipe:recipe_detail' slug=recipe.slug %}">Return to {{ recipe.title|title }} Detail Page</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

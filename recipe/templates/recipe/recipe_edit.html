@@ -1,11 +1,18 @@
 {% extends "recipe/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <h3>Edit Recipe - Change title or description for your recipe:</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {{ recipe_edit_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container my-5">
+        <h3>Edit Recipe - Change title or description for your recipe:</h3>
+        <div class="col-12 d-flex flex-column">
+            <form class="form-group mt-5" method="POST">
+                {% csrf_token %}
+                {{ recipe_edit_form|crispy }}
+                <div class="col-12">
+                    <button class="btn btn-info btn-block my-1 mx-2" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 {% endblock content %}

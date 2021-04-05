@@ -1,15 +1,36 @@
 {% extends 'recipe/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<h3>Step 3 - Add ingredient amount for each ingredient for "{{ recipe.title }}":</h3>
-<hr>
-<p>Return to <a href="{% url 'recipe:recipe_builder' %}">HOMEPAGE</a></p>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ formset.as_p }}
-    <p>Hit "Save" to store ingredients - you can add more once you've saved.</p>
-    <button type="submit">Save</button>
-</form>
-
-
+<div class="container my-5">
+    <h3>Step 3 - Add ingredient amount for each ingredient for "{{ recipe.title }}":</h3>
+    <hr>
+    <div class="row fill-50-viewport">
+        <div class="col-3 border border-info rounded my-2">
+            <p class="lead py-2 text-center"><strong>This is the list of added ingredients:</strong></p>
+            <ul class="list-group  list-group-flush d-flex flex-column align-item-start">
+                {% for ingredient in ingredient_list %}
+                    <li class="list-group-item list-group-item-dark li-bg-colour">
+                        {{ ingredient|title }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-9 d-flex flex-column">
+            <div class="d-flex flex-column">
+                <form class="form-group mt-5" method="POST">
+                    {% csrf_token %}
+                    {{ formset|crispy }}
+                    <p>Hit "Save" to store ingredients - you can add more once you've saved.</p>
+                    <div class="col-12">
+                        <button class="btn btn-info btn-block my-1 mx-2" type="submit">Save</button>
+                    </div>
+                </form>
+                <div class="col-12">
+                    <a class="btn btn-primary btn-block my-1 mx-2" href="{% url 'recipe:recipe_builder' %}">Return to Recipe Builder</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

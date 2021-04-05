@@ -1,24 +1,35 @@
 {% extends "recipe/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <h3>Step 2 - Add title and description for your recipe:</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {{ recipe_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    <p>Return to <a href="{% url 'recipe:recipe_builder' %}">HOMEPAGE</a> for step 3</p>
-    <hr>
-    <div>
-        <h3>This is the list of submitted recipe:</h3>
-        {% for recipe in recipe_list %}
-            <li>
-                {{ recipe.title }}
-            </li>
-            <br>
-        {% endfor %}
+    <div class="container my-5">
+        <h3>Step 2 - Add title and description for your recipe:</h3>
+        <hr>
+        <div class="row fill-50-viewport">
+            <div class="col-3 border border-info rounded my-2">
+                <p class="lead py-2 text-center"><strong>This is the list of submitted recipe:</strong></p>
+                <ul class="list-group  list-group-flush d-flex flex-column align-item-start">
+                    {% for recipe in recipe_list %}
+                        <li class="list-group-item list-group-item-dark li-bg-colour">
+                            {{ recipe.title }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-9 d-flex flex-column">
+                <div class="d-flex flex-column">
+                    <form class="form-group mt-5" method="POST">
+                        {% csrf_token %}
+                        {{ recipe_form|crispy }}
+                        <div class="col-12">
+                            <button class="btn btn-info btn-block my-1 mx-2" type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block my-1 mx-2" href="{% url 'recipe:recipe_builder' %}">Return to Recipe Builder for Step 3</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
 {% endblock content %}

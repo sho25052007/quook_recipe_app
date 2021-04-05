@@ -1,0 +1,51 @@
+{% extends "recipe/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container my-5">
+    <h3>Add Ingredient - include more ingredients to {{ recipe.title|title }}:</h3>
+    <hr/>
+    <div class="row fill-50-viewport">
+        <div class="col-3 border border-info rounded my-2">
+            <p class="lead py-2 text-center"><strong>Ingredients for <br>{{ recipe.title|title }} <br>and other ingredients:</strong></p>
+            <ul class="list-group  list-group-flush d-flex flex-column align-item-start">
+                {% for ingredient in ingredient_list %}
+                    <li class="list-group-item list-group-item-dark li-bg-colour">
+                        {{ ingredient|title }}
+                    </li>
+                {% endfor %}
+                {% for other_ingredient in other_ingredient_list %}
+                    {% if other_ingredient not in ingredient_list %}
+                    <li class="list-group-item list-group-item-light li-bg-colour">
+                        {{ other_ingredient|title }}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-9 d-flex flex-column">
+            <div class="d-flex flex-column">
+                <form class="form-group mt-5" method="POST">
+                    {% csrf_token %}
+                    {{ ingredient_edit_formset.management_form }}
+                    {% for formset in ingredient_edit_formset %}
+                    <div class="d-flex justify-content-center my-2">
+                        {{ formset|crispy }}
+                    </div>
+                    {% endfor %}
+                    <div class="col-12">
+                        <button class="btn btn-info btn-block my-1 mx-2" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="d-flex flex-column mt-5 border-top border-secondary">
+                <h5 class="col-12 mt-5 mx-auto text-center">Click to choose ingredient amount for your new ingredients:</h5>
+                <div class="col-12">
+                    <a class="btn btn-primary btn-block my-1 mx-2" href="{% url 'recipe:ingredient_amount_edit' slug=recipe.slug %}">Edit Ingredient Amount</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

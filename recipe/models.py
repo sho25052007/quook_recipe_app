@@ -40,7 +40,10 @@ class Recipe(models.Model):
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    alphabet = RegexValidator(
+        r'^[A-Za-z]+$', 'Only alphabet characters are allowed.')
+    name = models.CharField(max_length=200, null=True,
+                            unique=True, validators=[alphabet])
 
     def __str__(self):
         return self.name

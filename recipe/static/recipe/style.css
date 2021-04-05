@@ -4,11 +4,16 @@
 body {
     background: #FAD2DB;
     margin-top: 5rem;
+    overflow-x: hidden;
 }
 
 .fill-viewport {
     min-height: 100vh;
   }
+
+.fill-50-viewport {
+    min-height: 50vh;
+}
 
 /* TEXT */
 h1, h2, h3, h4, h5, h6 {
@@ -59,4 +64,11 @@ pre {
     font-family: "Helvetica Neue";
     color: #272E4A;
     font-size: 16px;
+}
+
+
+/* LIST */
+
+.li-bg-colour {
+    background: #FAD2DB;
 }
